@@ -1,5 +1,3 @@
---http://iamtrask.github.io/2015/07/12/basic-python-network/
-math.randomseed(os.clock()*10^20/729351)
 -- sigmoid function
 function nonlin(x, deriv)
     deriv = deriv or false
@@ -81,7 +79,6 @@ for i = 1,50000 do
     w = add(w, matrixdot(l0, l1_delta))
 end
 
--- this will print a table (not useful)
 for i=1,#l1 do
     print(l1[i])
 end

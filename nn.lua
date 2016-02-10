@@ -21,8 +21,16 @@ local X = {{0,0,1},{0,1,1},{1,0,1},{1,1,1}}
 
 local y = {0, 0, 1, 1}
 
---weights
-w = {2*math.random()-1,2*math.random()-1,2*math.random()-1}
+--weights (should be a function)
+function weights(len)
+    local w = {}
+    for i=1,len do
+        w[i] = 2*math.random()-1
+    end
+    return w
+end
+
+w = weights(3)
 
 function dotprod(a, b)
     local res = 0
@@ -64,7 +72,7 @@ function add(a, b)
     return res
 end
 
-for i = 1,10000 do
+for i = 1,50000 do
     local l0 = X
     l1 = nonlin_array(matrixdot(l0, w))
     --y is a matrix, this needs matrix substraction 

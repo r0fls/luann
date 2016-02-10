@@ -4,7 +4,8 @@ math.randomseed(os.clock()*10^20/729351)
 function nonlin(x, deriv)
     deriv = deriv or false
     if deriv then
-        return x*(1-x)
+        return nonlin(x)*(1-nonlin(x))
+        --return x*(1-x)
     end
     return 1/(1+math.exp(-x))
 end

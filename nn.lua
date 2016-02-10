@@ -5,7 +5,6 @@ function nonlin(x, deriv)
     deriv = deriv or false
     if deriv then
         return nonlin(x)*(1-nonlin(x))
-        --return x*(1-x)
     end
     return 1/(1+math.exp(-x))
 end

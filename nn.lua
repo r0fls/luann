@@ -92,7 +92,11 @@ function nn.train(self, iterations)
 end
 
 function nn.predict(self, input)
-    return nonlin_array(matrixdot(input, self.w))
+    if type(input[1])=='table' then
+        return nonlin_array(matrixdot(input, self.w))
+    elseif type(input[1])=='number' then
+        return nonlin(dotprod(input, self.w))
+    end
 end
 
 X = {{0,0,1},{0,1,1},{1,0,1},{1,1,1}}
@@ -104,3 +108,4 @@ local z = l1:predict(X)
 for i=1,#z do
     print(z[i])
 end
+print(l1:predict(X[1]))

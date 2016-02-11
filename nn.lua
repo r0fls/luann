@@ -83,20 +83,24 @@ end
 function nn.train(self, iterations)
     for i = 1,iterations do
         local l0 = self.input
-        l1 = nonlin_array(matrixdot(l0, self.w))
+        local l1 = nonlin_array(matrixdot(l0, self.w))
         l1_error = subtract(self.output,l1)
         l1_delta = multiply(l1_error, nonlin_array(l1, true))
         self.w = add(self.w, matrixdot(l0, l1_delta))
     end
-    return l1
+    return self
+end
+
+function nn.predict(self, input)
+    return nonlin_array(matrixdot(input, self.w))
 end
 
 X = {{0,0,1},{0,1,1},{1,0,1},{1,1,1}}
 --y should be a 2 layer table (fix subtract)
 y = {0, 0, 1, 1}
 l1 = nn.new(X,y)
-local z = l1:train(10000)
-
-for i=1,#l1 do
-    print(l1[i])
+l1:train(10000)
+local z = l1:predict(X)
+for i=1,#z do
+    print(z[i])
 end

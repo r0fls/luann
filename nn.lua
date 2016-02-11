@@ -70,14 +70,23 @@ function add(a, b)
     return res
 end
 
-for i = 1,50000 do
-    local l0 = X
-    l1 = nonlin_array(matrixdot(l0, w))
-    --y is a matrix, this needs matrix substraction 
-    l1_error = subtract(y,l1)
-    l1_delta = multiply(l1_error, nonlin_array(l1, true))
-    w = add(w, matrixdot(l0, l1_delta))
+local nn = {}
+
+function nn.train(iterations,input,output,w)
+    if not w then
+        w = weights(#output)
+    end
+    for i = 1,iterations do
+        local l0 = input
+        l1 = nonlin_array(matrixdot(l0, w))
+        l1_error = subtract(output,l1)
+        l1_delta = multiply(l1_error, nonlin_array(l1, true))
+        w = add(w, matrixdot(l0, l1_delta))
+    end
+    return l1
 end
+
+local l1 = nn.train(10000,X,y)
 
 for i=1,#l1 do
     print(l1[i])
